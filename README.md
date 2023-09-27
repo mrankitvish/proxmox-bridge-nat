@@ -26,6 +26,7 @@ iface lo inet loopback
 
 iface enp30s0 inet manual
 ```
+```
 auto vmbr0
 iface vmbr0 inet static
         address 192.168.29.5/24
@@ -45,6 +46,7 @@ iface vmbr1 inet static
         post-down iptables -t nat -D POSTROUTING -s '10.0.0.0/24' -o vmbr0 -j MASQUERADE
         post-up   iptables -t raw -I PREROUTING -i fwbr+ -j CT --zone 1
         post-down iptables -t raw -D PREROUTING -i fwbr+ -j CT --zone 1
+```
 ## Step 3: Enable IP Forwarding
 Edit the file /etc/sysctl.conf and add or uncomment the following line to enable IP forwarding:
 
