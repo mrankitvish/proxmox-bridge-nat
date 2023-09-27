@@ -56,9 +56,9 @@ Then, run the following command to apply the changes:
 
 ```bash
 sysctl -p
+```
 Step 4: Save the IPTables Configuration
 Save the IPTables configuration by running the following commands:
-```
 
 ```bash
 iptables -t nat -A POSTROUTING -o vmbr0 -j MASQUERADE
