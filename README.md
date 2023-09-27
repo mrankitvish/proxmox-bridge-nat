@@ -1,10 +1,10 @@
-# Linux Bridge Setup Guide
+# Virtual Network Setup Guide for Proxmox
 
-This guide will walk you through the process of setting up a Linux bridge and configuring network settings using a WebUI.
+This guide will walk you through the process of setting up a Linux bridge and configuring network settings using Proxmox WebUI.
 
-## Step 1: Create a Linux Bridge and Assign IP using WebUI
+## Step 1: Create a Linux Bridge and Assign IP using Proxmox WebUI
 
-1. Create a Linux bridge with the name `vmbr1` and assign it the IP address `10.0.0.1/24`.
+Create a Linux bridge with the name `vmbr1` and assign it the IP address `10.0.0.1/24`.
 
 ## Step 2: Edit /etc/network/interfaces
 
@@ -25,8 +25,7 @@ auto lo
 iface lo inet loopback
 
 iface enp30s0 inet manual
-```
-```
+
 auto vmbr0
 iface vmbr0 inet static
         address 192.168.29.5/24
@@ -34,7 +33,6 @@ iface vmbr0 inet static
         bridge-ports enp30s0
         bridge-stp off
         bridge-fd 0
-
 auto vmbr1
 iface vmbr1 inet static
         address 10.0.0.1/24
@@ -53,8 +51,8 @@ Edit the file /etc/sysctl.conf and add or uncomment the following line to enable
 ```bash
 net.ipv4.ip_forward=1
 ```
-Then, run the following command to apply the changes:
 
+Then, run the following command to apply the changes:
 
 ```bash
 sysctl -p
@@ -66,7 +64,7 @@ Save the IPTables configuration by running the following commands:
 iptables -t nat -A POSTROUTING -o vmbr0 -j MASQUERADE
 iptables-save | tee /etc/iptables/rules.v4
 ```
+
 ## Step 5: Reboot
 Reboot your system to apply the changes.
-
 That's it! Your Linux bridge setup is now complete.
